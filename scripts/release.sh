@@ -75,8 +75,11 @@ SIGN_IDENTITY="$DEV_ID" UNIVERSAL=1 "$ROOT/scripts/build-app.sh"
 
 echo "==> 2/7  Verifying signature, hardened runtime and architectures…"
 codesign --verify --deep --strict --verbose=2 "$APP_PATH"
-codesign -dv "$APP_PATH" 2>&1 | grep -q "flags=.*runtime" || { echo "ERROR: hardened runtime not enabled."; exit 1; }
-lipo -archs "$APP_PATH/Contents/MacOS/$APP_NAME" | grep -q "x86_64 arm64" || { echo "ERROR: not a universal binary."; exit 1; }
+# Captured, not piped into grep -q: with pipefail, grep's early exit SIGPIPEs the producer.
+SIG_INFO="$(codesign -dv "$APP_PATH" 2>&1)"
+[[ "$SIG_INFO" == *"(runtime)"* ]] || { echo "ERROR: hardened runtime not enabled."; exit 1; }
+ARCHS="$(lipo -archs "$APP_PATH/Contents/MacOS/$APP_NAME")"
+[[ "$ARCHS" == *x86_64* && "$ARCHS" == *arm64* ]] || { echo "ERROR: not a universal binary ($ARCHS)."; exit 1; }
 
 echo "==> 3/7  Notarizing the app…"
 ditto -c -k --keepParent "$APP_PATH" "$ZIP_PATH"
