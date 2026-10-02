@@ -1,0 +1,6 @@
+.build/
+build/
+.swiftpm/
+.DS_Store
+*.log
+tools/anim-probe/sheet-*.png
