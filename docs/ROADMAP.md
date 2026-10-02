@@ -8,4 +8,4 @@
 | 4. Calibrate the speed curve on an external / 60 Hz display, and per display if it differs | next |
 | 5. Verify the pre-27 recipe (macOS 14–26); untested, and its speed curve is uncalibrated | blocked (no pre-27 machine) |
 | 6. Optional: finger-following trackpad swipe with a sped-up release; animated multi-step jumps | idea |
-| 7. Distribution: app icon, Developer ID signing + notarization, DMG | idea |
+| 7. Distribution: open source (MIT), app icon, Developer ID + notarization, DMG on GitHub Releases — v0.1.0 | done (2026-10-02) |

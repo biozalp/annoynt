@@ -9,3 +9,4 @@ macOS menu-bar app (pure Swift, SwiftPM, no Xcode project) that replaces the Spa
 - Testing a switch moves the user's real desktop — ask before doing it from an agent shell.
 - Switch speed = release velocity of a synthetic swipe; the Dock animates natively (see `Core/SpeedCurve.swift`). Don't reintroduce frame-by-frame progress driving — it flickers.
 - Calibration / visual verification: `tools/anim-probe` (screen-records switches at 120 fps). Recalibrate `SpeedCurve` after macOS updates.
+- Public OSS repo `biozalp/annoynt` (MIT). Release: bump `CFBundleShortVersionString` + `CFBundleVersion` in `Resources/Info.plist`, commit + push, then `scripts/release.sh > log 2>&1` (notarized universal DMG → GitHub Release `vX.Y.Z`), then `scripts/verify-release.sh`. No Sparkle — by owner's choice.
